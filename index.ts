@@ -1,32 +1,19 @@
 /*
- * Vencord, a modification for Discord's desktop app
- * Copyright (c) 2022 Vendicated and contributors
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * Vencord, a Discord client mod
+ * Copyright (c) 2025 Vendicated and contributors
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
 import { definePluginSettings } from "@api/Settings";
-import { makeRange } from "@components/PluginSettings/components/SettingSliderComponent";
 import { Devs } from "@utils/constants";
 import { sleep } from "@utils/misc";
-import definePlugin, { OptionType } from "@utils/types";
+import definePlugin, { makeRange, OptionType } from "@utils/types";
+import { Message, ReactionEmoji } from "@vencord/discord-types";
 import {
     RelationshipStore,
     SelectedChannelStore,
     UserStore,
 } from "@webpack/common";
-import { Message, ReactionEmoji } from "discord-types/general";
 
 interface IMessageCreate {
     type: "MESSAGE_CREATE";
@@ -243,8 +230,8 @@ export default definePlugin({
             if (channelId !== SelectedChannelStore.getChannelId()) return;
 
             for (const emoji of EMOJI_STORE) {
-                const names = emoji.names;
-                const regex = emoji.regex;
+                const { names } = emoji;
+                const { regex } = emoji;
 
                 // console.log(
                 //     `Checking for ${names} in message: ${message.content}`
